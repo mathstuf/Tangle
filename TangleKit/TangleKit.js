@@ -34,6 +34,33 @@ Tangle.classes.TKIf = {
 
 //----------------------------------------------------------
 //
+//  TKRangeSelect
+//
+//  Chooses between a range of numbers, changing with each click.
+//
+//  By default, the range is from 0 to the number of children of the element.
+//
+//  Attributes:  data-min (optional): minimum value
+//               data-max (optional): maximum value
+
+Tangle.classes.TKRangeSelect = {
+
+    initialize: function (element, options, tangle, variable) {
+        element.addEvent("click", function (event) {
+            var minRange = (options.min == undefined) ? 0 : options.min;
+            var maxRange = (options.max == undefined) ? (element.getChildren().length - 1) : options.max;
+            var curValue = tangle.getValue(variable);
+            var nextValue = curValue + 1;
+
+            if (nextValue > maxRange) nextValue = minRange;
+            tangle.setValue(variable, nextValue);
+        });
+    }
+};
+
+
+//----------------------------------------------------------
+//
 //  TKSwitch
 //
 //  Shows the element's nth child if value is n.
